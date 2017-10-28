@@ -1,0 +1,40 @@
+{
+  "name": "service-worker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "scss-production": "node-sass --output-style compressed --source-map true -o public/dist/css src/scss",
+    "scss-development": "node-sass --output-style --source-map true -o public/css src/scss",
+    "autoprefixer": "postcss -u autoprefixer -r public/css/style.css && postcss -u autoprefixer -r public/css/dist/style.css",
+    "build-css": "npm run scss-development && npm run scss-production && npm run autoprefixer",
+    "bundle-js": "babel src/js --out-file public/js/app.js",
+    "build-js-production": "uglifyjs public/js/app.js --compress --source-map --output public/dist/js/app.js",
+    "build-js": "npm run bundle-js && npm run build-js-production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kevin Fechner <bkevinfechner1989@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "dexie": "^2.0.1",
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.1.6",
+    "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "browserify": "^14.5.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "gulp-changed": "^3.1.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "morgan": "^1.9.0",
+    "node-sass": "^4.5.3",
+    "nodemon": "^1.12.1",
+    "postcss-cli": "^4.1.1",
+    "uglify-js": "^3.1.5",
+    "webpack": "^3.8.1"
+  }
+}
