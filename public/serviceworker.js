@@ -1,14 +1,30 @@
-self.addEventListener("fetch", function(event) {
-	console.log("Fetch request for: ", event.request.url);
 
-	// if (event.request.url.includes("/intern/images/cage-200x300.jpg")) {
-	// 	event.respondWith(fetch("/intern/images/cage-200x300-color.jpg"));
-	// }
+const CACHE_NAME = "sw-cache";
+const CACHED_URLS = ["/index-offline.html", "/intern/js/app.js", "/intern/css/style.css", "/intern/images/cage-200x300.jpg", "/intern/images/cage-200x300-color.jpg"];
 
-	event.respondWith(
-			fetch(event.request).catch(function() {
-				return new Response("Welcome to the offline site");
+self.addEventListener("install", function(event) {
+	event.waitUntil(
+			caches.open(CACHE_NAME).then(function(cache) {
+				return cache.addAll(CACHED_URLS);
 			})
 		)
+})
 
+self.addEventListener("fetch", function(event) {
+	event.respondWith(
+			fetch(event.request).catch(function() {
+				return caches.match(event.request).then(function(response) {
+					if(response) {
+						return response;
+					} else if(event.request.headers.get("accept").includes("text/html")) {
+						return caches.match("/index-offline.html");
+					}
+				})
+				caches.match("/index-offline.html").then(function(response) {
+					if (response) {
+						return response;
+					}
+				});
+			})
+		)
 })
