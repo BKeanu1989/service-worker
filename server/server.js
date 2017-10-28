@@ -25,6 +25,10 @@ if (env === 'production') {
 	app.use('/intern/js', express.static(path.join(__dirname, '..', 'public', 'js')));
 	app.use('/intern/css', express.static(path.join(__dirname, '..', 'public', 'css')));
 }
+	app.use('/intern/images', express.static(path.join(__dirname, '..', 'public', 'images')));
+
+	// seems to be necessary for service worker
+app.use(express.static("public"));
 
 // app.use(cookieParser());
 // app.use(bodyParser.urlencoded({extended: false}));

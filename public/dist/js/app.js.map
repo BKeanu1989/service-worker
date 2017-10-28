@@ -1,1 +1,1 @@
-{"version":3,"sources":["public/js/app.js"],"names":["console","log"],"mappings":"AAAAA,QAAQC,IAAI"}
+{"version":3,"sources":["public/js/app.js"],"names":["navigator","serviceWorker","register","then","registration","console","log","scope","catch","err"],"mappings":"AAAI,kBAAmBA,WACtBA,UAAUC,cAAcC,SAAS,qBAAqBC,KAAK,SAAUC,cACpEC,QAAQC,IAAI,qCAAsCF,aAAaG,SAC7DC,MAAM,SAAUC,KAClBJ,QAAQC,IAAI,sCAAuCG"}
