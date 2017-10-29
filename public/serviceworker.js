@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "sw-cache";
+const CACHE_NAME = "sw-cache-v3";
 const CACHED_URLS = ["/index-offline.html", "/intern/js/app.js", "/intern/css/style.css", "/intern/images/cage-200x300.jpg", "/intern/images/cage-200x300-color.jpg"];
 
 self.addEventListener("install", function(event) {
@@ -8,7 +8,20 @@ self.addEventListener("install", function(event) {
 				return cache.addAll(CACHED_URLS);
 			})
 		)
-})
+});
+
+self.addEventListener("activate", function(event) {
+	event.waitUntil(
+			caches.keys().then(function(cacheNames) {
+				return Promise.all(cacheNames.map(function(cacheName) {
+					if (CACHE_NAME !== cacheName && cacheName.startsWith("sw-cache") {
+						return caches.delete(cacheName);
+					})
+				})
+				);
+			})
+		)
+});
 
 self.addEventListener("fetch", function(event) {
 	event.respondWith(
@@ -20,11 +33,6 @@ self.addEventListener("fetch", function(event) {
 						return caches.match("/index-offline.html");
 					}
 				})
-				caches.match("/index-offline.html").then(function(response) {
-					if (response) {
-						return response;
-					}
-				});
 			})
 		)
 })
